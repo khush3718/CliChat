@@ -46,8 +46,13 @@ def receive():
         username = client.recv(1024).decode('ascii') # Receive the username from the client
         usernames.append(username) # Append the username to the list of usernames
         clients.append(client) # Append the client to the list of clients
-        
+
         print(f'Username of the client is {username}!') # Print the username of the client
         broadcast(f'{username} has joined the chat room!'.encode('ascii')) # Broadcast that the client has joined the chat room
         client.send('Connected to the server!'.encode('ascii')) # Send the client a connection confirmation message
+
         _thread.start_new_thread(handle_client, (client, )) # Start a new thread to handle the client
+
+
+print('Server is listening...') # Print that the server is listening
+receive() # Call the receive function
